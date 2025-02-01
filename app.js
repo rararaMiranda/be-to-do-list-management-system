@@ -7,6 +7,8 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var taskRouter = require('./routes/task');
+var usertaskRouter = require('./routes/usertask');
 
 var app = express();
 
@@ -20,8 +22,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//Greating API
 app.use('/', indexRouter);
+//User API
 app.use('/users', usersRouter);
+//Task API
+app.use('/task', taskRouter);
+//UserTask API
+app.use('/usertask', usertaskRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
