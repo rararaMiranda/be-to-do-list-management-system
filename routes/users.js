@@ -5,10 +5,21 @@ const prisma = new PrismaClient();
 const bcrypt = require('bcrypt');
 const { stringify } = require('jade/lib/utils');
 
-//Get allUsers
-router.get('/', async function (req, res) {
+// Get All Users
+router.get('/get-all', async function (req, res) {
   const users = await prisma.user.findMany();
-  res.json(users);
+  res.send(users);
+});
+
+// Get User by ID
+router.get('/get-user/:id', async function (req, res) {
+  const { id } = req.params;
+  const user = await prisma.user.findUnique({
+    where: {
+      id: parseInt(id),
+    },
+  });
+  res.send(user);
 });
 
 // Create User

@@ -27,7 +27,7 @@ app.use('/', indexRouter);
 //User API
 app.use('/users', usersRouter);
 //Task API
-app.use('/task', taskRouter);
+app.use('/tasks', taskRouter);
 //UserTask API
 app.use('/usertask', usertaskRouter);
 
@@ -50,9 +50,13 @@ app.use(function (err, req, res) {
 // Set port
 const port = process.env.APP_PORT || 4000;
 
-// Start server
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+//CeK Env
+const env = process.env.ENV_TYPE || 'Production';
+
+if (env === 'development') {
+  app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+  });
+}
 
 module.exports = app;
